@@ -1,20 +1,38 @@
 package model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Entity
+@Table(name = "empleados")
 public class Empleado {
 
-	Integer id;
-	String nombre;
-	Double salario;
-	Departamento departamento;
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	@Getter
+	private Integer id;
+	@Setter
+	private String nombre;
+	private Double salario;
+	
+	@OneToOne
+	private Departamento departamento;
+	@OneToMany
+	private Empleado empleado;
 
 	/**
 	 * Devuelve representación de un empleado
