@@ -85,36 +85,36 @@ public class BD {
 		List<String> sqls = new ArrayList<String>();
 		if (BD.typeDB.equals("sqlite")) {
 			sqls.add("""
-						CREATE TABLE IF NOT EXISTS departamento (
+						CREATE TABLE IF NOT EXISTS departamentos (
 							id INTEGER PRIMARY KEY AUTOINCREMENT,
 							nombre TEXT UNIQUE NOT NULL,
 							jefe INTEGER DEFAULT NULL
 						)
 					""");
 			sqls.add("""
-						CREATE TABLE IF NOT EXISTS empleado (
+						CREATE TABLE IF NOT EXISTS empleados (
 							id INTEGER PRIMARY KEY AUTOINCREMENT,
 							nombre TEXT UNIQUE NOT NULL,
 							salario REAL DEFAULT 0.0,
-							nacido TEXT DEFAULT NULL,
+						
 							departamento INTEGER DEFAULT NULL
 						)
 					""");
 		}
 		if (BD.typeDB.equals("mariadb")) {
 			sqls.add("""
-						CREATE TABLE IF NOT EXISTS departamento (
+						CREATE TABLE IF NOT EXISTS departamentos (
 						  id INT PRIMARY KEY AUTO_INCREMENT,
 						  nombre VARCHAR(255) UNIQUE NOT NULL,
 						  jefe INT
 						)
 					""");
 			sqls.add("""
-						CREATE TABLE IF NOT EXISTS empleado (
+						CREATE TABLE IF NOT EXISTS empleados (
 						  id INT PRIMARY KEY AUTO_INCREMENT,
 						  nombre VARCHAR(255) UNIQUE NOT NULL,
 						  salario DECIMAL(10, 2) DEFAULT 0.0,
-						  nacido DATE,
+						  
 						  departamento INT
 						)
 					""");
