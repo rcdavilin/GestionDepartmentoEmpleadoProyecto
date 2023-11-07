@@ -29,9 +29,9 @@ public class DepartamanetosRepositoriesImpl implements DepartamentosRepositories
         logger.info("findById()");
         HibernateManager hb = HibernateManager.getInstance();
         hb.open();
-        Optional<Departamento> raqueta = Optional.ofNullable(hb.getManager().find(Departamento.class, id));
+        Optional<Departamento> depatartamento = Optional.ofNullable(hb.getManager().find(Departamento.class, id));
         hb.close();
-        return raqueta;
+        return depatartamento;
     }
 
     @Override
