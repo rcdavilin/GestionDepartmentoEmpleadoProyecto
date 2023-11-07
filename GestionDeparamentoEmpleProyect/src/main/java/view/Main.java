@@ -19,7 +19,7 @@ public class Main {
 		System.out.println("Gestion Departamentos, Empleados y Proyectos");
 		int opc = 0;
 		int opc1 = 0;
-		// initDataBase();
+		initDataBase();
 
 		var controller = new GestionController(new DepartamanetosRepositoriesImpl(), new EmpleadosRepositoriesImpl(),
 				new ProyectosRepositoriesImpl());
@@ -44,10 +44,10 @@ public class Main {
 							deleteEmpleado(controller);
 							break;
 						case 3:
-							
+							showEmpleado(controller);
 							break;
 						case 4:
-							
+							showEmpleadoporID(controller);
 							break;
 						default:
 							break;
@@ -85,6 +85,18 @@ public class Main {
 		} while (opc != 0);
 
 	
+	}
+
+	private static void showEmpleadoporID(GestionController controller) {
+		IO.println("Introduzca el ID del empleado que quiera mostrar");
+		Integer id = IO.readInt();
+		IO.println(controller.getEmpleadoById(id).toString());
+		IO.println("");
+	}
+
+	private static void showEmpleado(GestionController controller) {
+		IO.print(controller.getEmpleado().toString());
+		IO.println("");
 	}
 
 	private static void deleteEmpleado(GestionController controller) {
