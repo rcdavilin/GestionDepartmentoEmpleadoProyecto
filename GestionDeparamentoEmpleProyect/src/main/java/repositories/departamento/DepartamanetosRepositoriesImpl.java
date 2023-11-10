@@ -77,6 +77,4 @@ public class DepartamanetosRepositoriesImpl implements DepartamentosRepositories
             }
         }
     }
-
-	
 }

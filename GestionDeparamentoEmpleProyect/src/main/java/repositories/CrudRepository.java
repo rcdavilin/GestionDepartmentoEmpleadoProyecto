@@ -13,4 +13,5 @@ public interface CrudRepository<T, ID> {
     T save(T entity);
 
     Boolean delete(T entity);
+    
 }

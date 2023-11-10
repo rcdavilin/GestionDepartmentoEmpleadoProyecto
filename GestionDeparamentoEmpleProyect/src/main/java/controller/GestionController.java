@@ -32,9 +32,9 @@ public class GestionController {
         return depRepository.findAll();
     }
 
-    public Departamento createDepartamento(Departamento tenista) {
+    public Departamento createDepartamento(Departamento departamento) {
         logger.info("Creando Departamento");
-        return depRepository.save(tenista);
+        return depRepository.save(departamento);
     }
 
     public Optional<Departamento> getDepartamentoById(Integer id) {

@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.logging.Logger;
 
 import controller.GestionController;
+import dao.BD;
 import dao.HibernateManager;
 import io.IO;
 import model.Empleado;
@@ -54,16 +55,16 @@ public class Main {
 						}
 					} while (opc1 != 0);
 					break;
-				case 2:
+				case 3:
 					do {
 						menu1();
 						opc1 = IO.readInt();
 						switch (opc1) {
 						case 1:
-							
+							addProyectos(controller);
 							break;
 						case 2:
-							
+							showProyecto(controller);
 							break;
 						case 3:
 							
@@ -79,12 +80,16 @@ public class Main {
 					break;
 				}
 			} catch (InputMismatchException e) {
-				IO.println("Sólo se permiten números");
+				IO.println("\nSólo se permiten números");
 			}
 
 		} while (opc != 0);
 
 	
+	}
+
+	private static void addProyectos(GestionController controller) {
+		BD.getProyectosInit().forEach(controller::createProyecto);
 	}
 
 	private static void showEmpleadoporID(GestionController controller) {
@@ -98,23 +103,28 @@ public class Main {
 		IO.print(controller.getEmpleado().toString());
 		IO.println("");
 	}
+	
+	private static void showProyecto(GestionController controller) {
+		IO.print(controller.getProyecto().toString());
+		IO.println("");
+	}
 
 	private static void deleteEmpleado(GestionController controller) {
 		IO.print(controller.getEmpleado());
-		IO.println("Introduzca el ID del empleado que quiere eliminar");
+		IO.println("\nIntroduzca el ID del empleado que quiere eliminar");
 		Integer id = IO.readInt();
 		controller.deleteEmpleado(Empleado.builder().id(id).build());
 		IO.println("");
 	}
 
 	private static void addEmpleado(GestionController controller) {
-		IO.println("Introduzca el nombre: ");
+		IO.println("\nIntroduzca el nombre: ");
 		String nombre = IO.readString();
 		IO.println("Introduzca su salario");
 		Double salario = IO.readDouble();
 		IO.println(controller.createEmpleado(Empleado.builder().nombre(nombre).salario(salario).build()) != null
-				? "Añadido"
-				: "No se ha añadido");
+				? "\nAñadido"
+				: "\nNo se ha añadido");
 	}
 
 	private static void initDataBase() {
@@ -128,14 +138,14 @@ public class Main {
 	}
 
 	public static void menu() {
-		IO.println("1. Empleado");
+		IO.println("\n1. Empleado");
 		IO.println("2. Departamento");
 		IO.println("3. Proyecto");
 		IO.println("0. Salir");
 	}
 
 	public static void menu1() {
-		IO.println("1. Crear");
+		IO.println("\n1. Crear");
 		IO.println("2. Eliminar");
 		IO.println("3. Mostrar");
 		IO.println("4. Mostrar por ID");
