@@ -1,6 +1,16 @@
 package model;
 
-import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,32 +39,15 @@ public class Empleado {
 	private String nombre;
 	private Double salario;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "departamentoId")
 	private Departamento departamento;
-	@OneToMany
-	private Empleado empleado;
-
-	/**
-	 * Devuelve representación de un empleado
-	 * 
-	 * @return string
-	 */
-	public String show() {
-		if (id == 0) {
-			return "no empleado!!!";
-		}
-
-		StringBuilder sb = new StringBuilder();
-
-		sb.append(String.format("%2d:%-20s:%4.2f:", id, nombre, salario));
-		sb.append(":");
-		if (departamento == null || departamento.getNombre() == null) {
-			sb.append("sin departamento!!");
-		} else {
-			sb.append(String.format("Departamento [%2d:%s]", departamento.getId(), departamento.getNombre()));
-		}
-
-		return sb.toString();
-	}
+	
+	@ManyToOne
+	@JoinColumn(name = "proyectoId")
+	private Proyecto proyecto;
+	
+	@OneToMany(mappedBy = "empleado")
+	private List<Proyecto> misProyectos = new ArrayList<Proyecto>();
 
 }

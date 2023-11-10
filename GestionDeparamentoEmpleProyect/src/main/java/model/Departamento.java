@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,32 +31,11 @@ public class Departamento {
 	@GeneratedValue
 	@Column(name = "id")
 	@Getter
-	private Integer id; 
+	private Integer id;
 	@Setter
-	private String nombre; 
-	
-	@OneToMany
-	private Empleado jefe;
-	
-	/**
-	 * Devuelve representación de un departamento
-	 * 
-	 * @return string
-	 */
-	public String show() {		
-		if (id == 0) {
-			return "no departamento!!!";
-		}
+	private String nombre;
 
-		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%2d:%-20s:", id, nombre));
-		if (jefe == null || jefe.getNombre() == null) {
-			sb.append("sin jefe!!");
-		} else {
-			sb.append(String.format("jefe [%2d:%s]", jefe.getId(), jefe.getNombre()));
-		}
-		
-		return sb.toString();
-	}
+	@OneToMany(mappedBy = "departamento")
+	private List<Empleado> misEmpleados = new ArrayList<Empleado>();
 
 }

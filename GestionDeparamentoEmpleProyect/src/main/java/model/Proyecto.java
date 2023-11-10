@@ -1,7 +1,24 @@
 package model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Data
 @Builder
@@ -22,22 +39,10 @@ public class Proyecto {
 	@Setter
 	private String nombre;
 	
-	@OneToMany
+	@ManyToOne
+	@JoinColumn(name = "empleadoId")
 	private Empleado empleado;
 	
-	public String show() {		
-		if (id == 0) {
-			return "no departamento!!!";
-		}
-
-		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%2d:%-20s:", id, nombre));
-		if (empleado == null || empleado.getNombre() == null) {
-			sb.append("sin jefe!!");
-		} else {
-			sb.append(String.format("jefe [%2d:%s]", empleado.getId(), empleado.getNombre()));
-		}
-		
-		return sb.toString();
-	}
+	@OneToMany(mappedBy = "proyecto")
+	private List<Empleado> misEmpleados = new ArrayList<Empleado>();
 }
