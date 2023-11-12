@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -38,6 +39,8 @@ public class Departamento {
 	@Setter
 	private String nombre;
 
+	@ManyToOne
+	private Empleado emple;
 	@OneToMany(mappedBy = "departamento", fetch = FetchType.EAGER)
 	private List<Empleado> misEmpleados = new ArrayList<Empleado>();
 
