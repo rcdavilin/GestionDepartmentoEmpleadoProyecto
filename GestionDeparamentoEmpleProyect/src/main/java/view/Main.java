@@ -7,7 +7,9 @@ import controller.GestionController;
 import dao.BD;
 import dao.HibernateManager;
 import io.IO;
+import model.Departamento;
 import model.Empleado;
+import model.Proyecto;
 import repositories.departamento.DepartamanetosRepositoriesImpl;
 import repositories.empleado.EmpleadosRepositoriesImpl;
 import repositories.proyecto.ProyectosRepositoriesImpl;
@@ -35,7 +37,7 @@ public class Main {
 					break;
 				case 1:
 					do {
-						menu1();
+						menuEmpleado();
 						opc1 = IO.readInt();
 						switch (opc1) {
 						case 1:
@@ -55,22 +57,45 @@ public class Main {
 						}
 					} while (opc1 != 0);
 					break;
+				case 2:
+					do {
+						menuDepartamento();
+						opc1 = IO.readInt();
+						switch (opc1) {
+						case 1:
+							addDepartamento(controller);
+							break;
+						case 2:
+							deleteDepartamento(controller);
+							break;
+						case 3:
+							showDepartamento(controller);
+							break;
+						case 4:
+							showDepartamentoPorID(controller);
+							break;
+						default:
+							break;
+						}
+					} while (opc1 != 0);
+					break;
 				case 3:
 					do {
-						menu1();
+						menuProyecto();
 						opc1 = IO.readInt();
 						switch (opc1) {
 						case 1:
 							addProyectos(controller);
 							break;
 						case 2:
-							showProyecto(controller);
+							deleteProyecto(controller);
 							break;
 						case 3:
-							
+							showProyecto(controller);
+
 							break;
 						case 4:
-							
+							showProyectoPorId(controller);
 							break;
 						}
 					} while (opc1 != 0);
@@ -85,7 +110,51 @@ public class Main {
 
 		} while (opc != 0);
 
-	
+	}
+
+	private static void showDepartamentoPorID(GestionController controller) {
+		IO.println("Introduzca el ID del departamento que quiera mostrar");
+		Integer id = IO.readInt();
+		IO.println(controller.getDepartamentoById(id).toString());
+		IO.println("");
+	}
+
+	private static void showDepartamento(GestionController controller) {
+		IO.print(controller.getDepartamento().toString());
+		IO.println("");
+	}
+
+	private static void deleteDepartamento(GestionController controller) {
+		IO.print(controller.getDepartamento());
+		IO.println("\nIntroduzca el ID del departamento que quiere eliminar");
+		Integer id = IO.readInt();
+		controller.deleteDepartamento(Departamento.builder().id(id).build());
+		IO.println("");
+	}
+
+	private static void addDepartamento(GestionController controller) {
+		IO.println("\nIntroduzca el nombre: ");
+		String nombre = IO.readString();
+		
+		IO.println(controller
+				.createDepartamento(Departamento.builder().nombre(nombre).build()) != null
+						? "\nAñadido"
+						: "\nNo se ha añadido");
+	}
+
+	private static void showProyectoPorId(GestionController controller) {
+		IO.println("Introduzca el ID del proyecto que quiera mostrar");
+		Integer id = IO.readInt();
+		IO.println(controller.getProyectoById(id).toString());
+		IO.println("");
+	}
+
+	private static void deleteProyecto(GestionController controller) {
+		IO.print(controller.getProyecto());
+		IO.println("\nIntroduzca el ID del proyecto que quiere eliminar");
+		Integer id = IO.readInt();
+		controller.deleteProyecto(Proyecto.builder().id(id).build());
+		IO.println("");
 	}
 
 	private static void addProyectos(GestionController controller) {
@@ -103,9 +172,9 @@ public class Main {
 		IO.print(controller.getEmpleado().toString());
 		IO.println("");
 	}
-	
+
 	private static void showProyecto(GestionController controller) {
-		IO.print(controller.getProyecto().toString());
+		IO.println(controller.getProyecto().toString());
 		IO.println("");
 	}
 
@@ -144,11 +213,25 @@ public class Main {
 		IO.println("0. Salir");
 	}
 
-	public static void menu1() {
-		IO.println("\n1. Crear");
-		IO.println("2. Eliminar");
-		IO.println("3. Mostrar");
-		IO.println("4. Mostrar por ID");
+	public static void menuEmpleado() {
+		IO.println("\n1. Crear empleado");
+		IO.println("2. Eliminar empleado ");
+		IO.println("3. Mostrar empleado");
+		IO.println("4. Mostrar empleado por ID ");
+		IO.println("0. Salir");
+	}
+	public static void menuDepartamento() {
+		IO.println("\n1. Crear departamento");
+		IO.println("2. Eliminar departamento");
+		IO.println("3. Mostrar departamento");
+		IO.println("4. Mostrar departamento por ID");
+		IO.println("0. Salir");
+	}
+	public static void menuProyecto() {
+		IO.println("\n1. Crear proyecto");
+		IO.println("2. Eliminar proyecto");
+		IO.println("3. Mostrar proyecto");
+		IO.println("4. Mostrar proyecto por ID");
 		IO.println("0. Salir");
 	}
 }

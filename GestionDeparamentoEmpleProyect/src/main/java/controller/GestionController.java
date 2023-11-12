@@ -47,9 +47,9 @@ public class GestionController {
         return depRepository.save(departamento);
     }
 
-    public Boolean deleteDepartamento(Departamento tenista) {
-        logger.info("Eliminando Departamento con uuid: " + tenista.getId());
-        return depRepository.delete(tenista);
+    public Boolean deleteDepartamento(Departamento departamento) {
+        logger.info("Eliminando Departamento con uuid: " + departamento.getId());
+        return depRepository.delete(departamento);
     }
 
     // Empleado
