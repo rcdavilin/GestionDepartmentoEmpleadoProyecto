@@ -39,17 +39,18 @@ public class Departamento {
 
 	@OneToOne
 	private Empleado jefe;
+	
 	@OneToMany(mappedBy = "departamento", fetch = FetchType.EAGER)
 	private List<Empleado> misEmpleados = new ArrayList<Empleado>();
 
 	public String toString() {
 
 		if (jefe == null) {
-			return "[Departamento(id=" + getId() + ", nombre=" + getNombre() + ",jefe= " + jefe + ", empleados"
-					+ getMisEmpleados() + ")]";
+			return "Departamento(id=" + getId() + ", nombre=" + getNombre() + ",jefe= " + jefe + ", empleados="
+					+ getJefe() + ")\n";
 		} else {
-			return "[Departamento(id=" + getId() + ", nombre=" + getNombre() + ",jefe= " + jefe.getId() + "-"
-					+ jefe.getNombre() + ", empleados" + getMisEmpleados() + ")]";
+			return "Departamento(id=" + getId() + ", nombre=" + getNombre() + ",jefe= " + jefe.getId() + "-"
+					+ jefe.getNombre() + ", empleados= " + getJefe() + ")\n";
 		}
 
 	}

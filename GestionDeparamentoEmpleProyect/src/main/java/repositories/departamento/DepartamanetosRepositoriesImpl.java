@@ -1,7 +1,6 @@
 package repositories.departamento;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import dao.HibernateManager;

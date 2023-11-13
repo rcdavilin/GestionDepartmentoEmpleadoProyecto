@@ -4,3 +4,15 @@ delete from deparatamentos where id=? [23503-214]
 [ERROR] 13-11-2023 10:06:10.820 [main] SqlExceptionHelper - Violación de una restricción de Integridad Referencial: "FKPFY31JIS2H02QU4CCRSRLHKIQ: PUBLIC.EMPLEADOS FOREIGN KEY(DEPARTAMENTOID) REFERENCES PUBLIC.DEPARATAMENTOS(ID) (2)"
 Referential integrity constraint violation: "FKPFY31JIS2H02QU4CCRSRLHKIQ: PUBLIC.EMPLEADOS FOREIGN KEY(DEPARTAMENTOID) REFERENCES PUBLIC.DEPARATAMENTOS(ID) (2)"; SQL statement:
 delete from deparatamentos where id=? [23503-214]
+[ERROR] 13-11-2023 19:31:01.543 [main] SqlExceptionHelper - Violación de una restricción de Integridad Referencial: "FK42LOLVPUNKQOMN3JC7O8BEQ4C: PUBLIC.DEPARATAMENTOS FOREIGN KEY(JEFE_ID) REFERENCES PUBLIC.EMPLEADOS(ID) (1)"
+Referential integrity constraint violation: "FK42LOLVPUNKQOMN3JC7O8BEQ4C: PUBLIC.DEPARATAMENTOS FOREIGN KEY(JEFE_ID) REFERENCES PUBLIC.EMPLEADOS(ID) (1)"; SQL statement:
+delete from empleados where id=? [23503-214]
+[ERROR] 13-11-2023 20:56:40.059 [main] SqlExceptionHelper - Violación de una restricción de Integridad Referencial: "FKTO7ANKYN8UWAMS09ECXPUIOHD: PUBLIC.PROYECTOS FOREIGN KEY(EMPLEADOID) REFERENCES PUBLIC.EMPLEADOS(ID) (1)"
+Referential integrity constraint violation: "FKTO7ANKYN8UWAMS09ECXPUIOHD: PUBLIC.PROYECTOS FOREIGN KEY(EMPLEADOID) REFERENCES PUBLIC.EMPLEADOS(ID) (1)"; SQL statement:
+delete from empleados where id=? [23503-214]
+[ERROR] 13-11-2023 21:03:45.495 [main] SqlExceptionHelper - Violación de una restricción de Integridad Referencial: "FKTO7ANKYN8UWAMS09ECXPUIOHD: PUBLIC.PROYECTOS FOREIGN KEY(EMPLEADOID) REFERENCES PUBLIC.EMPLEADOS(ID) (1)"
+Referential integrity constraint violation: "FKTO7ANKYN8UWAMS09ECXPUIOHD: PUBLIC.PROYECTOS FOREIGN KEY(EMPLEADOID) REFERENCES PUBLIC.EMPLEADOS(ID) (1)"; SQL statement:
+delete from empleados where id=? [23503-214]
+[ERROR] 13-11-2023 21:04:25.463 [main] SqlExceptionHelper - Violación de una restricción de Integridad Referencial: "FKTO7ANKYN8UWAMS09ECXPUIOHD: PUBLIC.PROYECTOS FOREIGN KEY(EMPLEADOID) REFERENCES PUBLIC.EMPLEADOS(ID) (1)"
+Referential integrity constraint violation: "FKTO7ANKYN8UWAMS09ECXPUIOHD: PUBLIC.PROYECTOS FOREIGN KEY(EMPLEADOID) REFERENCES PUBLIC.EMPLEADOS(ID) (1)"; SQL statement:
+delete from empleados where id=? [23503-214]

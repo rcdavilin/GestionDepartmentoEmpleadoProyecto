@@ -1,14 +1,12 @@
 package repositories.proyecto;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import dao.HibernateManager;
 import exceptions.DepartamentoExceptions;
 import exceptions.ProyectoExceptions;
 import jakarta.persistence.TypedQuery;
-import model.Empleado;
 import model.Proyecto;
 import repositories.departamento.DepartamanetosRepositoriesImpl;
 
