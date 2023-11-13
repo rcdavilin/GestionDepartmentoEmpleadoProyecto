@@ -20,13 +20,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @EqualsAndHashCode
 @Entity
 @Table(name = "empleados")
@@ -41,16 +39,27 @@ public class Empleado {
 	@Setter
 	private String nombre;
 	private Double salario;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "departamentoId")
 	private Departamento departamento;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "proyectoId")
 	private Proyecto proyecto;
-	
+
 	@OneToMany(mappedBy = "empleado", fetch = FetchType.EAGER)
 	private List<Proyecto> misProyectos = new ArrayList<Proyecto>();
 
+	public String toString() {
+		if (departamento == null) {
+			return "[Empleado(id = " + getId() + ", nombre=" + getNombre() + ", salario=" + getSalario()
+					+ ", departamento=" + departamento + ", proyectos" + getMisProyectos() + ")]";
+		} else {
+			return "[Empleado(id = " + getId() + ", nombre=" + getNombre() + ", salario=" + getSalario()
+					+ ", departamento=" + departamento.getId() + " - " + departamento.getNombre() + ", proyectos"
+					+ getMisProyectos() + ")]";
+		}
+
+	}
 }

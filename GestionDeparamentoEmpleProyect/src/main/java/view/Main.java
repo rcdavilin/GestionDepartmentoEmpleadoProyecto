@@ -24,9 +24,7 @@ public class Main {
 		int opc1 = 0;
 		initDataBase();
 
-		var controller = new GestionController(
-				new DepartamanetosRepositoriesImpl(), 
-				new EmpleadosRepositoriesImpl(),
+		var controller = new GestionController(new DepartamanetosRepositoriesImpl(), new EmpleadosRepositoriesImpl(),
 				new ProyectosRepositoriesImpl());
 
 		do {
@@ -55,14 +53,7 @@ public class Main {
 							showEmpleadoporID(controller);
 							break;
 						case 5:
-
-							anadirDepartamento(controller);
-							
-
-							break;
-						case 6:
-							anadirProyecto(controller);
-							break;
+							addDepartamentoToEmple(controller);
 						default:
 							break;
 						}
@@ -83,7 +74,10 @@ public class Main {
 							showDepartamento(controller);
 							break;
 						case 4:
-							showDepartamentoPorID(controller);
+							showDepartamentoporID(controller);
+							break;
+						case 5:
+							addJefe(controller);
 							break;
 						default:
 							break;
@@ -92,7 +86,7 @@ public class Main {
 					break;
 				case 3:
 					do {
-						menuProyecto();
+						menu1();
 						opc1 = IO.readInt();
 						switch (opc1) {
 						case 1:
@@ -103,10 +97,11 @@ public class Main {
 							break;
 						case 3:
 							showProyecto(controller);
-
 							break;
 						case 4:
-							showProyectoPorId(controller);
+							showProyectoporID(controller);
+							break;
+						default:
 							break;
 						}
 					} while (opc1 != 0);
@@ -123,77 +118,43 @@ public class Main {
 
 	}
 
-	private static void anadirProyecto(GestionController controller) {
-		IO.println("Eliga el empleado que quiera modificar");
-		IO.println(controller.getEmpleado());
-		int id = IO.readInt();
-		
-		var empleado = controller.getEmpleadoById(id);
-		IO.println("Eliga el proyecto al que quiera añadir a ese empleado");
-		IO.println(controller.getProyecto());
-		int id_pro = IO.readInt();
-
-		Proyecto dep = Proyecto.builder().id(id_pro).build();
-		empleado.ifPresent(e -> e.setProyecto(dep));
-		empleado.ifPresent(controller::updateEmpleado);
-	}
-
-	private static void anadirDepartamento(GestionController controller) {
-		IO.println("Eliga el empleado que quiera modificar");
-		IO.println(controller.getEmpleado());
-		int id = IO.readInt();
-		
-		var empleado = controller.getEmpleadoById(id);
-		IO.println("Eliga el deparatamento al que quiera añadir a ese empleado");
+	private static void addJefe(GestionController controller) {
 		IO.println(controller.getDepartamento());
-		int id_dep = IO.readInt();
+		IO.print("\nIntroduzca el ID del departamento al que le quieras añadir un jefe: ");
+		int idDep = IO.readInt();
 
-		Departamento dep = Departamento.builder().id(id_dep).build();
-		empleado.ifPresent(e -> e.setDepartamento(dep));
-		empleado.ifPresent(controller::updateEmpleado);
+		Departamento dep = controller.getDepartamentoPorId(idDep);
+
+		IO.println(controller.getEmpleado().toString());
+		IO.print("\nIntroduzca el ID del empleado al que quieras añadir como jefe: ");
+		int id = IO.readInt();
+
+		Empleado emp = controller.getEmpleadoById(id);
+
+		dep.setJefe(emp);
+		emp.setDepartamento(dep);
+
+		controller.updateDepartamento(dep);
+		controller.updateEmpleado(emp);
+
 	}
 
-	private static void showDepartamentoPorID(GestionController controller) {
-		IO.println("Introduzca el ID del departamento que quiera mostrar");
-		Integer id = IO.readInt();
-		IO.println(controller.getDepartamentoById(id).toString());
-		IO.println("");
-	}
+	private static void addDepartamentoToEmple(GestionController controller) {
+		IO.println(controller.getEmpleado().toString());
+		IO.print("\nIntroduzca el ID del empleado al que le quieras añadir un departamento: ");
+		int id = IO.readInt();
+		var emp = controller.getEmpleadoById(id);
 
-	private static void showDepartamento(GestionController controller) {
-		IO.print(controller.getDepartamento().toString());
-		IO.println("");
-	}
+		IO.println(controller.getDepartamento().toString());
+		IO.print("\nIntroduzca el ID del departamento al que quieras añadir el empleado con ID = " + id + ": ");
+		int idDep = IO.readInt();
 
-	private static void deleteDepartamento(GestionController controller) {
-		IO.print(controller.getDepartamento());
-		IO.println("\nIntroduzca el ID del departamento que quiere eliminar");
-		Integer id = IO.readInt();
-		controller.deleteDepartamento(Departamento.builder().id(id).build());
-		IO.println("");
-	}
+		var dep = Departamento.builder().id(idDep).build();
 
-	private static void addDepartamento(GestionController controller) {
-		IO.println("\nIntroduzca el nombre: ");
-		String nombre = IO.readString();
+		
+		emp.setDepartamento(dep);
+		controller.updateEmpleado(emp);
 
-		IO.println(controller.createDepartamento(Departamento.builder().nombre(nombre).build()) != null ? "\nAñadido"
-				: "\nNo se ha añadido");
-	}
-
-	private static void showProyectoPorId(GestionController controller) {
-		IO.println("Introduzca el ID del proyecto que quiera mostrar");
-		Integer id = IO.readInt();
-		IO.println(controller.getProyectoById(id).toString());
-		IO.println("");
-	}
-
-	private static void deleteProyecto(GestionController controller) {
-		IO.print(controller.getProyecto());
-		IO.println("\nIntroduzca el ID del proyecto que quiere eliminar");
-		Integer id = IO.readInt();
-		controller.deleteProyecto(Proyecto.builder().id(id).build());
-		IO.println("");
 	}
 
 	private static void addProyectos(GestionController controller) {
@@ -207,13 +168,32 @@ public class Main {
 		IO.println("");
 	}
 
+	private static void showDepartamentoporID(GestionController controller) {
+		IO.println("Introduzca el ID del departamento que quiera mostrar");
+		Integer id = IO.readInt();
+		IO.println(controller.getDepartamentoPorId(id).toString());
+		IO.println("");
+	}
+
+	private static void showProyectoporID(GestionController controller) {
+		IO.println("Introduzca el ID del proyecto que quiera mostrar");
+		Integer id = IO.readInt();
+		IO.println(controller.getProyectoById(id).toString());
+		IO.println("");
+	}
+
 	private static void showEmpleado(GestionController controller) {
-		IO.println(controller.getEmpleado().toString());
+		IO.print(controller.getEmpleado().toString());
+		IO.println("");
+	}
+
+	private static void showDepartamento(GestionController controller) {
+		IO.print(controller.getDepartamento().toString());
 		IO.println("");
 	}
 
 	private static void showProyecto(GestionController controller) {
-		IO.println(controller.getProyecto().toString());
+		IO.print(controller.getProyecto().toString());
 		IO.println("");
 	}
 
@@ -225,14 +205,40 @@ public class Main {
 		IO.println("");
 	}
 
+	private static void deleteProyecto(GestionController controller) {
+		IO.print(controller.getProyecto());
+		IO.println("\nIntroduzca el ID del proyecto que quiere eliminar");
+		Integer id = IO.readInt();
+		controller.deleteProyecto(Proyecto.builder().id(id).build());
+		IO.println("");
+	}
+
+	private static void deleteDepartamento(GestionController controller) {
+		IO.print(controller.getDepartamento());
+		IO.println("\nIntroduzca el ID del departamento que quiere eliminar");
+		Integer id = IO.readInt();
+		
+		controller.deleteDepartamento(Departamento.builder().id(id).build());
+		IO.println("");
+	}
+
+	private static void addDepartamento(GestionController controller) {
+		IO.println("\nIntroduzca el nombre: ");
+		String nombre = IO.readString();
+		IO.println(controller.createDepartamento(Departamento.builder().nombre(nombre).jefe(null).build()) != null
+				? "\nAñadido"
+				: "\nNo se ha añadido");
+	}
+
 	private static void addEmpleado(GestionController controller) {
 		IO.println("\nIntroduzca el nombre: ");
 		String nombre = IO.readString();
 		IO.println("Introduzca su salario");
 		Double salario = IO.readDouble();
-		IO.println(controller.createEmpleado(Empleado.builder().nombre(nombre).salario(salario).build()) != null
-				? "\nAñadido"
-				: "\nNo se ha añadido");
+		IO.println(controller
+				.createEmpleado(Empleado.builder().nombre(nombre).salario(salario).departamento(null).build()) != null
+						? "\nAñadido"
+						: "\nNo se ha añadido");
 	}
 
 	private static void initDataBase() {
@@ -252,31 +258,29 @@ public class Main {
 		IO.println("0. Salir");
 	}
 
+	public static void menu1() {
+		IO.println("\n1. Crear");
+		IO.println("2. Eliminar");
+		IO.println("3. Mostrar");
+		IO.println("4. Mostrar por ID");
+		IO.println("0. Salir");
+	}
+
 	public static void menuEmpleado() {
-		IO.println("\n1. Crear empleado");
-		IO.println("2. Eliminar empleado ");
-		IO.println("3. Mostrar empleado");
-		IO.println("4. Mostrar empleado por ID ");
+		IO.println("\n1. Crear");
+		IO.println("2. Eliminar");
+		IO.println("3. Mostrar");
+		IO.println("4. Mostrar por ID");
 		IO.println("5. Añadir departamento");
-		IO.println("6. Añadir proyecto");
 		IO.println("0. Salir");
 	}
 
 	public static void menuDepartamento() {
-		IO.println("\n1. Crear departamento");
-		IO.println("2. Eliminar departamento");
-		IO.println("3. Mostrar departamento");
-		IO.println("4. Mostrar departamento por ID");
+		IO.println("\n1. Crear");
+		IO.println("2. Eliminar");
+		IO.println("3. Mostrar");
+		IO.println("4. Mostrar por ID");
 		IO.println("5. Añadir jefe");
-		IO.println("0. Salir");
-	}
-
-	public static void menuProyecto() {
-		IO.println("\n1. Crear proyecto");
-		IO.println("2. Eliminar proyecto");
-		IO.println("3. Mostrar proyecto");
-		IO.println("4. Mostrar proyecto por ID");
-
 		IO.println("0. Salir");
 	}
 }

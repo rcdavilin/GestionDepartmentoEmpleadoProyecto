@@ -37,7 +37,7 @@ public class GestionController {
         return depRepository.save(departamento);
     }
 
-    public Optional<Departamento> getDepartamentoById(Integer id) {
+    public Departamento getDepartamentoPorId(Integer id) {
         logger.info("Obteniendo Departamento con uuid: " + id);
         return depRepository.findById(id);
     }
@@ -47,9 +47,9 @@ public class GestionController {
         return depRepository.save(departamento);
     }
 
-    public Boolean deleteDepartamento(Departamento departamento) {
-        logger.info("Eliminando Departamento con uuid: " + departamento.getId());
-        return depRepository.delete(departamento);
+    public Boolean deleteDepartamento(Departamento dep) {
+        logger.info("Eliminando Departamento con uuid: " + dep.getId());
+        return depRepository.delete(dep);
     }
 
     // Empleado
@@ -63,10 +63,13 @@ public class GestionController {
         return empleRepository.save(empleado);
     }
 
-    public Optional<Empleado> getEmpleadoById(Integer id) {
+    public Empleado getEmpleadoById(Integer id) {
         logger.info("Obteniendo Empleado con uuid: " + id);
         return empleRepository.findById(id);
     }
+    
+  
+ 
 
     public Empleado updateEmpleado(Empleado empleado) {
         logger.info("Actualizando Empleado con uuid: " + empleado.getId());
@@ -89,7 +92,7 @@ public class GestionController {
         return proyectoRepository.save(proyecto);
     }
 
-    public Optional<Proyecto> getProyectoById(Integer id) {
+    public Proyecto getProyectoById(Integer id) {
         logger.info("Obteniendo Proyecto con uuid: " + id);
         return proyectoRepository.findById(id);
     }
@@ -104,4 +107,3 @@ public class GestionController {
         return proyectoRepository.delete(proyecto);
     }
 }
-

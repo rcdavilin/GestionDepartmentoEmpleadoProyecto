@@ -8,9 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,13 +19,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @EqualsAndHashCode
 @Entity
 @Table(name = "deparatamentos")
@@ -39,9 +37,20 @@ public class Departamento {
 	@Setter
 	private String nombre;
 
-	@ManyToOne
-	private Empleado emple;
+	@OneToOne
+	private Empleado jefe;
 	@OneToMany(mappedBy = "departamento", fetch = FetchType.EAGER)
 	private List<Empleado> misEmpleados = new ArrayList<Empleado>();
 
+	public String toString() {
+
+		if (jefe == null) {
+			return "[Departamento(id=" + getId() + ", nombre=" + getNombre() + ",jefe= " + jefe + ", empleados"
+					+ getMisEmpleados() + ")]";
+		} else {
+			return "[Departamento(id=" + getId() + ", nombre=" + getNombre() + ",jefe= " + jefe.getId() + "-"
+					+ jefe.getNombre() + ", empleados" + getMisEmpleados() + ")]";
+		}
+
+	}
 }

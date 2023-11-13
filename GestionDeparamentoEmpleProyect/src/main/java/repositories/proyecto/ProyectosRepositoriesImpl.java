@@ -8,6 +8,7 @@ import dao.HibernateManager;
 import exceptions.DepartamentoExceptions;
 import exceptions.ProyectoExceptions;
 import jakarta.persistence.TypedQuery;
+import model.Empleado;
 import model.Proyecto;
 import repositories.departamento.DepartamanetosRepositoriesImpl;
 
@@ -25,13 +26,13 @@ public class ProyectosRepositoriesImpl implements ProyectosRepositories{
 	    }
 
 	    @Override
-	    public Optional<Proyecto> findById(Integer id) {
-	        logger.info("findById()");
-	        HibernateManager hb = HibernateManager.getInstance();
-	        hb.open();
-	        Optional<Proyecto> proyecto = Optional.ofNullable(hb.getManager().find(Proyecto.class, id));
-	        hb.close();
-	        return proyecto;
+	    public Proyecto findById(Integer id) {
+	    	logger.info("findById()");
+			HibernateManager hb = HibernateManager.getInstance();
+			hb.open();
+			Proyecto emp = hb.getManager().find(Proyecto.class, id);
+			hb.close();
+			return emp;
 	    }
 
 	    @Override
@@ -77,5 +78,7 @@ public class ProyectosRepositoriesImpl implements ProyectosRepositories{
 	            }
 	        }
 	    }
+
+	
 
 }
