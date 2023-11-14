@@ -186,7 +186,7 @@ public class Main {
 
 			Empleado emp = controller.getEmpleadoById(id);
 
-			var dep = Departamento.builder().id(idDep).build();
+			Departamento dep = Departamento.builder().id(idDep).build();
 			
 			emp.setDepartamento(dep);
 			
@@ -263,20 +263,7 @@ public class Main {
 		Integer id = IO.readInt();
 		try {
 			Empleado emp = controller.getEmpleadoById(id);		
-			if(emp.getProyecto() == null || emp.getDepartamento()==null) {
-				controller.deleteEmpleado(emp);
-			}else {
-				
-				Proyecto pro = Proyecto.builder().empleado(emp).build();
-				
-
-				pro.setEmpleado(null);
-				controller.updateProyecto(pro);
-				
-				controller.deleteEmpleado(emp);
-			}
-			
-			IO.println("");
+			controller.deleteEmpleado(emp);
 		} catch (NullPointerException e) {
 			IO.println("No se ha podido eliminar el empleado con ID " + id);
 			IO.println("");

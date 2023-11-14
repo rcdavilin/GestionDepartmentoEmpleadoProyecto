@@ -43,15 +43,13 @@ public class Empleado {
 	@JoinColumn(name = "proyectoId")
 	private Proyecto proyecto;
 
-
 	public String toString() {
-		if (departamento == null) {
+		if (departamento == null && proyecto == null) {
 			return "Empleado(id = " + getId() + ", nombre=" + getNombre() + ", salario=" + getSalario()
-					+ ", departamento=" + departamento + ", proyectos" + proyecto + ")\n";
+					+ ", departamento=" + departamento + ", proyectos= " + proyecto + ")\n";
 		} else {
 			return "Empleado(id = " + getId() + ", nombre=" + getNombre() + ", salario=" + getSalario()
-					+ ", departamento=" + departamento.getId() + " - " + departamento.getNombre() + ", proyectos="
-					+ proyecto + ")\n";
+					+ ", departamento=" + departamento + ", proyectos=  " + proyecto + ")\n";
 		}
 
 	}

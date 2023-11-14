@@ -44,10 +44,10 @@ public class Proyecto {
 	public String toString() {
 
 		if (empleado == null) {
-			return "Departamento(id=" + getId() + ", nombre=" + getNombre() + ", empleados="
+			return "Proyectos (id=" + getId() + ", nombre=" + getNombre() + ", empleados="
 					+ getEmpleado() + ")\n";
 		} else {
-			return "Departamento(id=" + getId() + ", nombre=" + getNombre()
+			return "Proyectos (id=" + getId() + ", nombre=" + getNombre()
 					+ ", empleados= " + " ID: "+empleado.getId() + ", nombre: "+empleado.getNombre() +", salario: "+ empleado.getSalario() + ")\n";
 		}
 
