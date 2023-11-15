@@ -1,6 +1,8 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import controller.GestionController;
@@ -53,7 +55,7 @@ public class Main {
 							showEmpleadoporID(controller);
 							break;
 						case 5:
-							addDepartamentoToEmple(controller);
+							addEmpleToDepartamento(controller);
 							break;
 						case 6:
 							anadirEmpleadoProyecto(controller);
@@ -123,27 +125,26 @@ public class Main {
 	}
 
 	private static void anadirEmpleadoProyecto(GestionController controller) {
-		IO.println(controller.getEmpleado().toString());
-		IO.print("\nIntroduzca el ID del empleado al que le quieras añadir un proyecto: ");
-		int id = IO.readInt();
+		showEmpleado(controller);
+		IO.print("\nIntroduzca el ID del empleado que quieras añadir a un departamento.");
+		Integer id = IO.readInt();
+		Empleado emp = controller.getEmpleadoById(id);
 
-		IO.println(controller.getProyecto().toString());
-		IO.print("\nIntroduzca el ID del proyecto al que quieras añadir el empleado con ID = " + id + ": ");
-		int idPro = IO.readInt();
-		try {
-			Proyecto pro = controller.getProyectoById(idPro);
+		showProyecto(controller);
+		IO.print("\nIntroduzca el ID del proyecto al que quieras añadir el empleado con ID: " + id + ": ");
+		Integer idProy = IO.readInt();
+		Proyecto proy = controller.getProyectoById(idProy);
+		emp.setProyecto(proy);
+		
+		proy.getMisEmpleados().add(emp);
+		emp.getMisProyectos().add(proy);
+		
+		controller.updateEmpleado(emp);
+		controller.updateProyecto(proy);
 
-			Empleado emp = controller.getEmpleadoById(id);
-
-			pro.setEmpleado(emp);
-			emp.setProyecto(pro);
-
-			controller.updateProyecto(pro);
-			controller.updateEmpleado(emp);
-		} catch (NullPointerException e) {
-			IO.println("No se ha podido añadir el departamento con ID " + idPro + " al empleado con ID " + id);
-			IO.println("");
-		}
+		IO.println(((emp.getMisProyectos().contains(proy) && proy.getMisEmpleados().contains(emp))
+				? "\nEmpleado añadido a proyecto con éxito."
+				: "\nNo se ha podido aádir el empleado al proyecto."));
 	}
 
 	private static void addJefe(GestionController controller) {
@@ -174,28 +175,26 @@ public class Main {
 
 	}
 
-	private static void addDepartamentoToEmple(GestionController controller) {
-		IO.println(controller.getEmpleado().toString());
-		IO.print("\nIntroduzca el ID del empleado al que le quieras añadir un departamento: ");
-		int id = IO.readInt();
+	private static void addEmpleToDepartamento(GestionController controller) {
+		showEmpleado(controller);
+		IO.print("\nIntroduzca el ID del empleado que quieras añadir a un departamento: ");
+		Integer id = IO.readInt();
+		Empleado emp = controller.getEmpleadoById(id);
 
-		IO.println(controller.getDepartamento().toString());
-		IO.print("\nIntroduzca el ID del departamento al que quieras añadir el empleado con ID = " + id + ": ");
-		int idDep = IO.readInt();
-		try {
+		showDepartamento(controller);
+		IO.print("\nIntroduzca el ID del departamento al que quieras añadir el empleado con ID: " + id + ": ");
+		Integer idDep = IO.readInt();
+		Departamento dep = controller.getDepartamentoPorId(idDep);
 
-			Empleado emp = controller.getEmpleadoById(id);
+		emp.setDepartamento(dep);
+		dep.getMisEmpleados().add(emp);
+		
+		controller.updateDepartamento(dep);
+		controller.updateEmpleado(emp);
 
-			Departamento dep = Departamento.builder().id(idDep).build();
-			
-			emp.setDepartamento(dep);
-			
-			
-			controller.updateEmpleado(emp);
-		} catch (NullPointerException e) {
-			IO.println("No se ha podido añadir el departamento con ID " + idDep + " al empleado con ID " + id);
-			IO.println("");
-		}
+		IO.println(dep.getMisEmpleados().contains(emp) && (emp.getDepartamento() == dep)
+				? "\nEmpleado añadido a departamento con éxito."
+				: "\nNo se ha podido añadir el empleado al departamento.");
 
 	}
 

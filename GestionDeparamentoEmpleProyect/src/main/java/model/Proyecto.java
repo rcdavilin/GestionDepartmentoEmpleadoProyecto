@@ -1,10 +1,15 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
@@ -16,7 +21,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -26,30 +30,24 @@ import lombok.Setter;
 @Table(name = "proyectos")
 @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")
 public class Proyecto {
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
 	@Getter
 	private Integer id;
-	
+
 	@Setter
 	private String nombre;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "empleadoId")
 	private Empleado empleado;
-	
+
+	@ManyToMany(mappedBy = "proyecto", fetch = FetchType.EAGER)
+	private List<Empleado> misEmpleados = new ArrayList<Empleado>();
 
 	public String toString() {
-
-		if (empleado == null) {
-			return "Proyectos (id=" + getId() + ", nombre=" + getNombre() + ", empleados="
-					+ getEmpleado() + ")\n";
-		} else {
-			return "Proyectos (id=" + getId() + ", nombre=" + getNombre()
-					+ ", empleados= " + " ID: "+empleado.getId() + ", nombre: "+empleado.getNombre() +", salario: "+ empleado.getSalario() + ")\n";
-		}
-
+		return "[Proyecto(Id: " + getId() + ", Nombre: " + getNombre() + ", Empleados: " + getMisEmpleados() + ")]\n";
 	}
 }

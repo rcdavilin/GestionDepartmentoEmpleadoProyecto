@@ -37,3 +37,6 @@ delete from empleados where id=? [23503-214]
 [ERROR] 14-11-2023 09:35:31.512 [main] SqlExceptionHelper - Violación de una restricción de Integridad Referencial: "FKTO7ANKYN8UWAMS09ECXPUIOHD: PUBLIC.PROYECTOS FOREIGN KEY(EMPLEADOID) REFERENCES PUBLIC.EMPLEADOS(ID) (1)"
 Referential integrity constraint violation: "FKTO7ANKYN8UWAMS09ECXPUIOHD: PUBLIC.PROYECTOS FOREIGN KEY(EMPLEADOID) REFERENCES PUBLIC.EMPLEADOS(ID) (1)"; SQL statement:
 delete from empleados where id=? [23503-214]
+[ERROR] 15-11-2023 10:09:13.243 [main] SqlExceptionHelper - Violación de una restricción de Integridad Referencial: "FKPFY31JIS2H02QU4CCRSRLHKIQ: PUBLIC.EMPLEADOS FOREIGN KEY(DEPARTAMENTOID) REFERENCES PUBLIC.DEPARATAMENTOS(ID) (1)"
+Referential integrity constraint violation: "FKPFY31JIS2H02QU4CCRSRLHKIQ: PUBLIC.EMPLEADOS FOREIGN KEY(DEPARTAMENTOID) REFERENCES PUBLIC.DEPARATAMENTOS(ID) (1)"; SQL statement:
+delete from deparatamentos where id=? [23503-214]
