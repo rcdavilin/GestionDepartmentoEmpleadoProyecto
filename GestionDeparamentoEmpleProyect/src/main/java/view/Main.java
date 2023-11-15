@@ -58,7 +58,15 @@ public class Main {
 							addEmpleToDepartamento(controller);
 							break;
 						case 6:
-							anadirEmpleadoProyecto(controller);
+							addEmpleToProyecto(controller);
+
+							break;
+						case 7:
+							deleteEmpleFromDepartamento(controller);
+
+							break;
+						case 8:
+							deleteEmpleFromProyecto(controller);
 							break;
 						default:
 							break;
@@ -85,6 +93,29 @@ public class Main {
 						case 5:
 							addJefe(controller);
 							break;
+						case 6:
+//							showEmpleado(controller);
+//							IO.print("\nIntroduzca el ID del jefe que quieras retirar de su departamento: ");
+//							Integer id = IO.readInt();
+//							Empleado emp = controller.getEmpleadoById(id);
+//
+//							if (emp.getDepartamento() != null) {
+//								Integer idDep = emp.getDepartamento().getId();
+//								Departamento dep = controller.getDepartamentoPorId(idDep);
+//
+//								dep.setJefe(emp);
+//								emp.setDepartamento(null);
+//								dep.getJefe().remove(dep);
+//								controller.updateEmpleado(emp);
+//								controller.updateDepartamento(dep);
+//
+//								IO.println((emp.getDepartamento() == null && !dep.getMisEmpleados().contains(emp))
+//										? "\nEmpleado retirado de su departamento con éxito."
+//										: "\nNo se ha podido retirar al empleado de su departamento.");
+//							} else {
+//								IO.println("\nEl empleado con ID: " + id + " no tiene ningún departamento.");
+//							}
+							break;
 						default:
 							break;
 						}
@@ -92,7 +123,7 @@ public class Main {
 					break;
 				case 3:
 					do {
-						menu1();
+						menuProyecto();
 						opc1 = IO.readInt();
 						switch (opc1) {
 						case 1:
@@ -107,6 +138,7 @@ public class Main {
 						case 4:
 							showProyectoporID(controller);
 							break;
+		
 						default:
 							break;
 						}
@@ -122,9 +154,11 @@ public class Main {
 
 		} while (opc != 0);
 
+
 	}
 
-	private static void anadirEmpleadoProyecto(GestionController controller) {
+	private static void addEmpleToProyecto(GestionController controller) {
+		List<Empleado> emple = new ArrayList<Empleado>();
 		showEmpleado(controller);
 		IO.print("\nIntroduzca el ID del empleado que quieras añadir a un departamento.");
 		Integer id = IO.readInt();
@@ -134,11 +168,14 @@ public class Main {
 		IO.print("\nIntroduzca el ID del proyecto al que quieras añadir el empleado con ID: " + id + ": ");
 		Integer idProy = IO.readInt();
 		Proyecto proy = controller.getProyectoById(idProy);
+		
+		emple.add(emp);
 		emp.setProyecto(proy);
+		proy.setMisEmpleados(emple);
 		
-		proy.getMisEmpleados().add(emp);
+		
 		emp.getMisProyectos().add(proy);
-		
+		proy.getMisEmpleados().add(emp);
 		controller.updateEmpleado(emp);
 		controller.updateProyecto(proy);
 
@@ -146,6 +183,7 @@ public class Main {
 				? "\nEmpleado añadido a proyecto con éxito."
 				: "\nNo se ha podido aádir el empleado al proyecto."));
 	}
+
 
 	private static void addJefe(GestionController controller) {
 		IO.println(controller.getDepartamento());
@@ -257,44 +295,81 @@ public class Main {
 	}
 
 	private static void deleteEmpleado(GestionController controller) {
-		IO.print(controller.getEmpleado());
+		showEmpleado(controller);
 		IO.println("\nIntroduzca el ID del empleado que quiere eliminar");
 		Integer id = IO.readInt();
-		try {
-			Empleado emp = controller.getEmpleadoById(id);		
-			controller.deleteEmpleado(emp);
-		} catch (NullPointerException e) {
-			IO.println("No se ha podido eliminar el empleado con ID " + id);
-			IO.println("");
+		Empleado emp = controller.getEmpleadoById(id);
+		if (emp.getDepartamento() != null) {
+			Integer idDep = emp.getDepartamento().getId();
+			Departamento dep = controller.getDepartamentoPorId(idDep);
+			dep.getMisEmpleados().remove(emp);
+			controller.updateDepartamento(dep);
 		}
+		IO.println(controller.deleteEmpleado(Empleado.builder().id(id).build()) ? "\nEmpleado eliminado con éxito."
+				: "\nNo se ha podido eliminar el empleado.");
 	}
-
-	private static void deleteProyecto(GestionController controller) {
-		IO.print(controller.getProyecto());
-		IO.println("\nIntroduzca el ID del proyecto que quiere eliminar");
+	private static void deleteEmpleFromDepartamento(GestionController controller) {
+		showEmpleado(controller);
+		IO.print("\nIntroduzca el ID del empleado que quieras retirar de su departamento: ");
 		Integer id = IO.readInt();
-		try {
+		Empleado emp = controller.getEmpleadoById(id);
 
-			controller.deleteProyecto(Proyecto.builder().id(id).build());
-			IO.println("");
-		} catch (NullPointerException e) {
-			IO.println("No se ha podido eliminar el departamento con ID " + id);
-			IO.println("");
+		if (emp.getDepartamento() != null) {
+			Integer idDep = emp.getDepartamento().getId();
+			Departamento dep = controller.getDepartamentoPorId(idDep);
+
+			emp.setDepartamento(null);
+			dep.getMisEmpleados().remove(emp);
+			controller.updateEmpleado(emp);
+			controller.updateDepartamento(dep);
+
+			IO.println((emp.getDepartamento() == null && !dep.getMisEmpleados().contains(emp))
+					? "\nEmpleado retirado de su departamento con éxito."
+					: "\nNo se ha podido retirar al empleado de su departamento.");
+		} else {
+			IO.println("\nEl empleado con ID: " + id + " no tiene ningún departamento.");
 		}
 	}
+	private static void deleteEmpleFromProyecto(GestionController controller) {
+		showEmpleado(controller);
+		IO.print("\nIntroduzca el ID del empleado que quieras retirar de un proyecto: ");
+		Integer id = IO.readInt();
+		Empleado emp = controller.getEmpleadoById(id);
+
+		if (emp.getMisProyectos().size() > 0) {
+			IO.println(emp.getMisProyectos());
+			IO.print("\nIntroduzca el ID del proyecto de donde quieras retirar al empleado con ID: " + id + ": ");
+			Integer idProy = IO.readInt();
+			Proyecto proy = controller.getProyectoById(idProy);
+
+			emp.getMisProyectos().remove(proy);
+			proy.getMisEmpleados().remove(emp);
+			controller.updateEmpleado(emp);
+			controller.updateProyecto(proy);
+
+			IO.println((!emp.getMisProyectos().contains(proy) && !proy.getMisEmpleados().contains(emp))
+					? "\nEmpleado retirado del proyecto con éxito."
+					: "\nNo se ha podido retirar al empleado del proyecto.");
+		} else {
+			IO.println("\nEl empleado con ID: " + id + " no tiene ningún proyecto.");
+		}
+	}
+	private static void deleteProyecto(GestionController controller) {
+		showProyecto(controller);
+		IO.print("\nIntroduzca el ID del proyecto que quiere eliminar: ");
+		Integer id = IO.readInt();
+		IO.println(controller.deleteProyecto(Proyecto.builder().id(id).build()) ? "\nProyecto eliminado con éxito."
+				: "\nNo se ha podido eliminar el proyecto.");
+	}
+
 
 	private static void deleteDepartamento(GestionController controller) {
-		IO.print(controller.getDepartamento());
-		IO.println("\nIntroduzca el ID del departamento que quiere eliminar");
+		showDepartamento(controller);
+		IO.print("\nIntroduzca el ID del departamento que quiere eliminar: ");
 		Integer id = IO.readInt();
-		try {
-
-			controller.deleteDepartamento(Departamento.builder().id(id).build());
-			IO.println("");
-		} catch (NullPointerException e) {
-			IO.println("No se ha podido eliminar el departamento con ID " + id);
-			IO.println("");
-		}
+		IO.println(controller.deleteDepartamento(Departamento.builder().id(id).build())
+				? "\nDepartamento eliminado con éxito."
+				: "\nNo se ha podido eliminar el departamento.");
 	}
 
 	private static void addDepartamento(GestionController controller) {
@@ -330,33 +405,37 @@ public class Main {
 		IO.println("\n1. Empleado");
 		IO.println("2. Departamento");
 		IO.println("3. Proyecto");
-		IO.println("0. Salir");
-	}
-
-	public static void menu1() {
-		IO.println("\n1. Crear");
-		IO.println("2. Eliminar");
-		IO.println("3. Mostrar");
-		IO.println("4. Mostrar por ID");
-		IO.println("0. Salir");
+		IO.println("0. Salir\n");
 	}
 
 	public static void menuEmpleado() {
-		IO.println("\n1. Crear");
-		IO.println("2. Eliminar");
-		IO.println("3. Mostrar");
-		IO.println("4. Mostrar por ID");
-		IO.println("5. Añadir departamento");
-		IO.println("6. Añadir proyecto");
-		IO.println("0. Salir");
+		IO.println("\n1. Crear empleado");
+		IO.println("2. Eliminar empleado ");
+		IO.println("3. Mostrar empleados");
+		IO.println("4. Mostrar empleado por ID");
+		IO.println("5. Añadir empleado a departamento");
+		IO.println("6. Añadir empleado a proyecto");
+		IO.println("7. Eliminar empleado de departamento");
+		IO.println("8. Eliminar empleado de proyecto");
+		IO.println("0. Salir\n");
 	}
 
 	public static void menuDepartamento() {
-		IO.println("\n1. Crear");
-		IO.println("2. Eliminar");
-		IO.println("3. Mostrar");
-		IO.println("4. Mostrar por ID");
-		IO.println("5. Añadir jefe");
-		IO.println("0. Salir");
+		IO.println("\n1. Crear departamento");
+		IO.println("2. Eliminar departamento");
+		IO.println("3. Mostrar departamentos");
+		IO.println("4. Mostrar departamento por ID");
+		IO.println("5. Añadir jefe a departamento");
+		IO.println("6. Eliminar jefe de departamento");
+		IO.println("0. Salir\n");
 	}
+
+	public static void menuProyecto() {
+		IO.println("\n1. Crear proyectos");
+		IO.println("2. Eliminar proyecto");
+		IO.println("3. Mostrar proyectos");
+		IO.println("4. Mostrar proyecto por ID");
+		IO.println("0. Salir\n");
+	}
+
 }
