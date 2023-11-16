@@ -1,8 +1,6 @@
 package view;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.logging.Logger;
 
 import controller.GestionController;
@@ -138,7 +136,7 @@ public class Main {
 						case 4:
 							showProyectoporID(controller);
 							break;
-		
+
 						default:
 							break;
 						}
@@ -154,11 +152,10 @@ public class Main {
 
 		} while (opc != 0);
 
-
 	}
 
 	private static void addEmpleToProyecto(GestionController controller) {
-		List<Empleado> emple = new ArrayList<Empleado>();
+
 		showEmpleado(controller);
 		IO.print("\nIntroduzca el ID del empleado que quieras añadir a un departamento.");
 		Integer id = IO.readInt();
@@ -168,14 +165,10 @@ public class Main {
 		IO.print("\nIntroduzca el ID del proyecto al que quieras añadir el empleado con ID: " + id + ": ");
 		Integer idProy = IO.readInt();
 		Proyecto proy = controller.getProyectoById(idProy);
-		
-		emple.add(emp);
-		emp.setProyecto(proy);
-		proy.setMisEmpleados(emple);
-		
-		
+
 		emp.getMisProyectos().add(proy);
 		proy.getMisEmpleados().add(emp);
+
 		controller.updateEmpleado(emp);
 		controller.updateProyecto(proy);
 
@@ -184,18 +177,16 @@ public class Main {
 				: "\nNo se ha podido aádir el empleado al proyecto."));
 	}
 
-
 	private static void addJefe(GestionController controller) {
 		IO.println(controller.getDepartamento());
 		IO.print("\nIntroduzca el ID del departamento al que le quieras añadir un jefe: ");
 		int idDep = IO.readInt();
 
-
 		IO.println(controller.getEmpleado().toString());
 		IO.print("\nIntroduzca el ID del empleado al que quieras añadir como jefe: ");
 		int id = IO.readInt();
 		try {
-			
+
 			Departamento dep = controller.getDepartamentoPorId(idDep);
 
 			Empleado emp = controller.getEmpleadoById(id);
@@ -205,9 +196,9 @@ public class Main {
 
 			controller.updateDepartamento(dep);
 			controller.updateEmpleado(emp);
-			
+
 		} catch (NullPointerException e) {
-			IO.println("No se ha podido añadir el jefe con ID "+id+" al departamento con ID "+ idDep);
+			IO.println("No se ha podido añadir el jefe con ID " + id + " al departamento con ID " + idDep);
 			IO.println("");
 		}
 
@@ -226,7 +217,7 @@ public class Main {
 
 		emp.setDepartamento(dep);
 		dep.getMisEmpleados().add(emp);
-		
+
 		controller.updateDepartamento(dep);
 		controller.updateEmpleado(emp);
 
@@ -308,6 +299,7 @@ public class Main {
 		IO.println(controller.deleteEmpleado(Empleado.builder().id(id).build()) ? "\nEmpleado eliminado con éxito."
 				: "\nNo se ha podido eliminar el empleado.");
 	}
+
 	private static void deleteEmpleFromDepartamento(GestionController controller) {
 		showEmpleado(controller);
 		IO.print("\nIntroduzca el ID del empleado que quieras retirar de su departamento: ");
@@ -330,6 +322,7 @@ public class Main {
 			IO.println("\nEl empleado con ID: " + id + " no tiene ningún departamento.");
 		}
 	}
+
 	private static void deleteEmpleFromProyecto(GestionController controller) {
 		showEmpleado(controller);
 		IO.print("\nIntroduzca el ID del empleado que quieras retirar de un proyecto: ");
@@ -354,6 +347,7 @@ public class Main {
 			IO.println("\nEl empleado con ID: " + id + " no tiene ningún proyecto.");
 		}
 	}
+
 	private static void deleteProyecto(GestionController controller) {
 		showProyecto(controller);
 		IO.print("\nIntroduzca el ID del proyecto que quiere eliminar: ");
@@ -361,7 +355,6 @@ public class Main {
 		IO.println(controller.deleteProyecto(Proyecto.builder().id(id).build()) ? "\nProyecto eliminado con éxito."
 				: "\nNo se ha podido eliminar el proyecto.");
 	}
-
 
 	private static void deleteDepartamento(GestionController controller) {
 		showDepartamento(controller);

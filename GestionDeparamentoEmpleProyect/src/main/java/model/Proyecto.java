@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -8,9 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -40,14 +37,15 @@ public class Proyecto {
 	@Setter
 	private String nombre;
 
-	@ManyToOne
-	@JoinColumn(name = "empleadoId")
-	private Empleado empleado;
-
-	@ManyToMany(mappedBy = "proyecto", fetch = FetchType.EAGER)
-	private List<Empleado> misEmpleados = new ArrayList<Empleado>();
+	@ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "empleado_proyecto",
+//        joinColumns = @JoinColumn(name = "proyecto_id"),
+//        inverseJoinColumns = @JoinColumn(name = "empleado_id"))
+	private List<Empleado> misEmpleados;
 
 	public String toString() {
-		return "[Proyecto(Id: " + getId() + ", Nombre: " + getNombre() + ", Empleados: " + getMisEmpleados() + ")]\n";
-	}
+		
+			return "[Proyecto(Id: " + getId() + ", Nombre: " + getNombre() + ", Empleados= " + misEmpleados + ")]\n";
+
+		}
 }

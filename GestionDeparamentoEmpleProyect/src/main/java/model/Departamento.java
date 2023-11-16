@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -41,7 +40,7 @@ public class Departamento {
 	private Empleado jefe;
 	
 	@OneToMany(mappedBy = "departamento", fetch = FetchType.EAGER)
-	private List<Empleado> misEmpleados = new ArrayList<Empleado>();
+	private List<Empleado> misEmpleados;
 
 	public String toString() {
 

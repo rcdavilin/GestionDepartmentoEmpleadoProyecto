@@ -40,3 +40,9 @@ delete from empleados where id=? [23503-214]
 [ERROR] 15-11-2023 10:09:13.243 [main] SqlExceptionHelper - Violación de una restricción de Integridad Referencial: "FKPFY31JIS2H02QU4CCRSRLHKIQ: PUBLIC.EMPLEADOS FOREIGN KEY(DEPARTAMENTOID) REFERENCES PUBLIC.DEPARATAMENTOS(ID) (1)"
 Referential integrity constraint violation: "FKPFY31JIS2H02QU4CCRSRLHKIQ: PUBLIC.EMPLEADOS FOREIGN KEY(DEPARTAMENTOID) REFERENCES PUBLIC.DEPARATAMENTOS(ID) (1)"; SQL statement:
 delete from deparatamentos where id=? [23503-214]
+[ERROR] 16-11-2023 12:59:55.058 [main] SqlExceptionHelper - Violación de indice de Unicidad ó Clave primaria: "PUBLIC.UK_QMBSOBIT14IGY1F3TRIYIAV7I_INDEX_B ON PUBLIC.PROYECTOS_EMPLEADOS(MISEMPLEADOS_ID NULLS FIRST) VALUES ( /* 1 */ 1 )"
+Unique index or primary key violation: "PUBLIC.UK_QMBSOBIT14IGY1F3TRIYIAV7I_INDEX_B ON PUBLIC.PROYECTOS_EMPLEADOS(MISEMPLEADOS_ID NULLS FIRST) VALUES ( /* 1 */ 1 )"; SQL statement:
+insert into proyectos_empleados (Proyecto_id, misEmpleados_id) values (?, ?) [23505-214]
+[ERROR] 16-11-2023 13:04:04.093 [main] SqlExceptionHelper - Violación de indice de Unicidad ó Clave primaria: "PUBLIC.UK_QMBSOBIT14IGY1F3TRIYIAV7I_INDEX_B ON PUBLIC.PROYECTOS_EMPLEADOS(MISEMPLEADOS_ID NULLS FIRST) VALUES ( /* 1 */ 1 )"
+Unique index or primary key violation: "PUBLIC.UK_QMBSOBIT14IGY1F3TRIYIAV7I_INDEX_B ON PUBLIC.PROYECTOS_EMPLEADOS(MISEMPLEADOS_ID NULLS FIRST) VALUES ( /* 1 */ 1 )"; SQL statement:
+insert into proyectos_empleados (Proyecto_id, misEmpleados_id) values (?, ?) [23505-214]

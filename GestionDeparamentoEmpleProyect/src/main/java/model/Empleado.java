@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -12,7 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,21 +43,18 @@ public class Empleado {
 	@JoinColumn(name = "departamentoId")
 	private Departamento departamento;
 
-	@ManyToOne
-	@JoinColumn(name = "proyectoId")
-	private Proyecto proyecto;
 
-	@OneToMany(mappedBy = "empleado", fetch = FetchType.EAGER)
-	private List<Proyecto> misProyectos = new ArrayList<Proyecto>();
+    @ManyToMany(mappedBy = "misEmpleados", fetch = FetchType.EAGER)
+	private List<Proyecto> misProyectos;
 
 	public String toString() {
-		if (departamento == null || misProyectos == null) {
+		if (departamento == null ) {
 			return "[Empleado(Id: " + getId() + ", Nombre: " + getNombre() + ", Salario: " + getSalario()
 					+ ", Departamento: " + departamento + ", Proyectos: " + getMisProyectos() + ")]\n";
 		} else {
 			return "[Empleado(Id: " + getId() + ", Nombre: " + getNombre() + ", Salario: " + getSalario()
 					+ ", Departamento: [Id: " + departamento.getId() + ", Nombre: " + departamento.getNombre()
-					+ "], Proyectos: " + getMisProyectos() + ")]\n";
+					+ "], Proyectos: " +	misProyectos+ ")]\n";
 		}
 
 	}
