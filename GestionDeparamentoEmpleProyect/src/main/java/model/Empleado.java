@@ -44,13 +44,14 @@ public class Empleado {
 	private Departamento departamento;
 
 
-    @ManyToMany(mappedBy = "misEmpleados", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "misEmpleados",fetch = FetchType.EAGER)
+    
 	private List<Proyecto> misProyectos;
 
 	public String toString() {
 		if (departamento == null ) {
 			return "[Empleado(Id: " + getId() + ", Nombre: " + getNombre() + ", Salario: " + getSalario()
-					+ ", Departamento: " + departamento + ", Proyectos: " + getMisProyectos() + ")]\n";
+					+ ", Departamento: " + departamento + ", Proyectos: " + misProyectos + ")]\n";
 		} else {
 			return "[Empleado(Id: " + getId() + ", Nombre: " + getNombre() + ", Salario: " + getSalario()
 					+ ", Departamento: [Id: " + departamento.getId() + ", Nombre: " + departamento.getNombre()

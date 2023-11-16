@@ -2,11 +2,15 @@ package model;
 
 import java.util.List;
 
+import org.hibernate.query.sqm.FetchClauseType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
@@ -34,18 +38,25 @@ public class Proyecto {
 	@Getter
 	private Integer id;
 
+	
 	@Setter
 	private String nombre;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "empleado_proyecto",
-//        joinColumns = @JoinColumn(name = "proyecto_id"),
-//        inverseJoinColumns = @JoinColumn(name = "empleado_id"))
+	
+    @JoinTable(name = "empleado_proyecto",
+        joinColumns = {@JoinColumn(name = "proyecto_id")},
+        inverseJoinColumns = {@JoinColumn(name = "empleado_id")})
+	
 	private List<Empleado> misEmpleados;
 
 	public String toString() {
-		
-			return "[Proyecto(Id: " + getId() + ", Nombre: " + getNombre() + ", Empleados= " + misEmpleados + ")]\n";
+			if(misEmpleados != null) {
+				return "[Proyecto(Id: " + getId() + ", Nombre: " + getNombre() + ", Empleados= " + getMisEmpleados() + ")]\n";
+
+			}
+			return "[Proyecto(Id: " + getId() + ", Nombre: " + getNombre() + ", Empleados= " + getMisEmpleados() + ")]\n";
+
 
 		}
 }
