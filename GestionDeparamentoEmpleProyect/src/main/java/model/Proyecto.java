@@ -1,8 +1,7 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.query.sqm.FetchClauseType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,21 +41,27 @@ public class Proyecto {
 	@Setter
 	private String nombre;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	
-    @JoinTable(name = "empleado_proyecto",
-        joinColumns = {@JoinColumn(name = "proyecto_id")},
-        inverseJoinColumns = {@JoinColumn(name = "empleado_id")})
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "misProyectos")
 	
 	private List<Empleado> misEmpleados;
 
 	public String toString() {
-			if(misEmpleados != null) {
-				return "[Proyecto(Id: " + getId() + ", Nombre: " + getNombre() + ", Empleados= " + getMisEmpleados() + ")]\n";
-
-			}
-			return "[Proyecto(Id: " + getId() + ", Nombre: " + getNombre() + ", Empleados= " + getMisEmpleados() + ")]\n";
+			
+			return "[Proyecto(Id: " + getId() + ", Nombre: " + getNombre() + ", Empleados= " + mostrarEmpleados(misEmpleados) + ")]\n";
 
 
 		}
+	
+	private String mostrarEmpleados(List<Empleado> misEmpleados) {
+		List<String> empleados = new ArrayList<String>();
+		for (Empleado empleado : misEmpleados) {
+			
+			empleados.add( "( ID: " + empleado.getId() + ", nombre: "+ empleado.getNombre() + ", salario: " +empleado.getSalario());
+			
+			
+		}
+		
+		return empleados + "";
+		
+	}
 }
