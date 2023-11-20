@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -38,19 +39,29 @@ public class Departamento {
 
 	@OneToOne
 	private Empleado jefe;
-	
+
 	@OneToMany(mappedBy = "departamento", fetch = FetchType.EAGER)
 	private List<Empleado> misEmpleados;
 
+	// Metodo toString para mostrar los atributos
 	public String toString() {
 
 		if (jefe == null) {
-			return "[Departamento(Id: " + getId() + ", Nombre: " + getNombre() + ", Jefe: " + jefe + ", Empleados: "
-					+ getMisEmpleados() + ")]\n";
+			return "[Departamento(Id: " + getId() + ", Nombre: " + getNombre() + ", Jefe: " + jefe + ", Empleados:"
+					+ mostrarEmpleado(misEmpleados) + "\n";
 		} else {
-			return "[Departamento(Id: " + getId() + ", Nombre: " + getNombre() + ", Jefe: [Id: " + jefe.getId() + ", Nombre: "
-					+ jefe.getNombre() + "], Empleados: " + getMisEmpleados() + ")]\n";
+			return "[Departamento(Id: " + getId() + ", Nombre: " + getNombre() + ", Jefe: (Id: " + jefe.getId()
+					+ ", Nombre: " + jefe.getNombre() + "), Empleados:" + mostrarEmpleado(misEmpleados) + "\n";
 		}
 
+	}
+
+	// Metodo para mostrar los empleados de un departamento
+	private List<String> mostrarEmpleado(List<Empleado> empleados) {
+		List<String> e = new ArrayList<String>();
+		for (Empleado empleado : empleados) {
+			e.add("(Id: " + empleado.getId() + ", Nombre: " + empleado.getNombre() + ")");
+		}
+		return e;
 	}
 }

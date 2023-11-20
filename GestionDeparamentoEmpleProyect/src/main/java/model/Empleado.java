@@ -46,32 +46,36 @@ public class Empleado {
 	@JoinColumn(name = "departamentoId")
 	private Departamento departamento;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST})
-	@JoinTable(name = "empleado_proyecto", joinColumns = { @JoinColumn(name = "proyecto_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "empleado_id") })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinTable(name = "empleadosProyectos", joinColumns = @JoinColumn(name = "empleado_id"), 
+	inverseJoinColumns = @JoinColumn(name = "proyecto_id"))
 	private List<Proyecto> misProyectos;
 
+	//Metodo toString para mostrar los atributos
+
 	public String toString() {
-		if (departamento == null) {
-			return "[Empleado(Id: " + getId() + ", Nombre: " + getNombre() + ", Salario: " + getSalario()
-					+ ", Departamento: " + departamento + ", Proyectos= " + mostrarProyectos(misProyectos) + ")]\n";
-		} else {
-			return "[Empleado(Id: " + getId() + ", Nombre: " + getNombre() + ", Salario: " + getSalario()
-					+ ", Departamento: [Id: " + departamento.getId() + ", Nombre: " + departamento.getNombre() + "]"
-					+ ", Proyectos= " + mostrarProyectos(misProyectos) + ")]\n";
-		}
+
+		return "[Empleado(Id: " + getId() + ", Nombre: " + getNombre() + ", Salario: " + getSalario()
+				+ ", Departamento:  " + mostrarDepartamento(departamento) + ", [Proyectos: "
+				+ mostrarProyectos(misProyectos) + "]\n";
+
 
 	}
 
-	private String mostrarProyectos(List<Proyecto> misProyectos) {
-
+	//Metodo para mostrar los proyectos de un empleado
+	private List<String> mostrarProyectos(List<Proyecto> misProyectos) {
 		List<String> proyectos = new ArrayList<String>();
-
 		for (Proyecto proyecto : misProyectos) {
-			proyectos.add("( ID = " + proyecto.getId() + ", nombre: " + proyecto.getNombre());
-
+			proyectos.add("(Id: " + proyecto.getId() + ", Nombre: " + proyecto.getNombre() + ")");
 		}
-		return proyectos + "";
+		return proyectos;
+	}
 
+	//Metodo para mostrar los departamentos de un empleado
+	private String mostrarDepartamento(Departamento dep) {
+		if (dep != null) {
+			return "(Id: " + departamento.getId() + ", Nombre: " + departamento.getNombre() + ")";
+		}
+		return null;
 	}
 }

@@ -36,7 +36,7 @@ public class GestionController {
         return depRepository.save(departamento);
     }
 
-    public Departamento getDepartamentoPorId(Integer id) {
+    public Departamento getDepartamentoById(Integer id) {
         logger.info("Obteniendo Departamento con uuid: " + id);
         return depRepository.findById(id);
     }
