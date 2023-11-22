@@ -4,9 +4,15 @@ import controller.GestionController;
 import io.IO;
 import model.Departamento;
 import model.Empleado;
-
+/**
+ * Clase para crear los metodos que necesitemos para manejar los departamentos
+ */
 public class DepartamentoDao {
 
+	/**
+	 * Metodo para añadir departamentos
+	 * @param controller
+	 */
 	public static void addDepartamento(GestionController controller) {
 		IO.print("\nIntroduzca el nombre: ");
 		String nombre = IO.readString();
@@ -15,6 +21,10 @@ public class DepartamentoDao {
 				: "\nNo se ha podido añadir el departamento.");
 	}
 
+	/**
+	 * Metodo para eliminar departamentos
+	 * @param controller
+	 */
 	public static void deleteDepartamento(GestionController controller) {
 		Departamento dep = null;
 		try {
@@ -43,6 +53,10 @@ public class DepartamentoDao {
 		}
 	}
 
+	/**
+	 * Metodo para mostrar los departamentos
+	 * @param controller
+	 */
 	public static void showDepartamentos(GestionController controller) {
 		if (existenDepartamentos(controller)) {
 			IO.println("\n");
@@ -51,7 +65,10 @@ public class DepartamentoDao {
 			IO.println("\n¡No existe ningún departamento!");
 		}
 	}
-
+	/**
+	 * Metodo para mostrar los departamentos por ID
+	 * @param controller
+	 */
 	public static void showDepartamentoporID(GestionController controller) {
 		try {
 			if (existenDepartamentos(controller)) {
@@ -66,6 +83,10 @@ public class DepartamentoDao {
 		}
 	}
 
+	/**
+	 * Metodo para añadir jefe a un departamento
+	 * @param controller
+	 */
 	public static void addJefe(GestionController controller) {
 		Empleado emp = null;
 		Departamento dep = null;
@@ -115,6 +136,10 @@ public class DepartamentoDao {
 
 	}
 
+	/**
+	 * Metodo para eliminar un jefe de un departamento
+	 * @param controller
+	 */
 	public static void deleteJefe(GestionController controller) {
 		Departamento dep = null;
 		try {
@@ -141,6 +166,10 @@ public class DepartamentoDao {
 		}
 	}
 
+	/**
+	 * Metodo para añadir un empleado a un departamento
+	 * @param controller
+	 */
 	public static void addDepartamentoToEmple(GestionController controller) {
 		Empleado emp = null;
 		Departamento dep = null;
@@ -193,6 +222,10 @@ public class DepartamentoDao {
 		}
 	}
 
+	/**
+	 * Metodo para eliminar un empleado de un departamento
+	 * @param controller
+	 */
 	public static void deleteDepartamentoFromEmple(GestionController controller) {
 		Departamento dep = null;
 		Empleado emp = null;
@@ -238,11 +271,17 @@ public class DepartamentoDao {
 		}
 	}
 
+	/**
+	 * Metodo para comprobar que existe un departamento
+	 * @param controller
+	 */
 	public static boolean existenDepartamentos(GestionController controller) {
 		return controller.getDepartamento().size() != 0;
 	}
 
-	// Menu
+	/**
+	 * Menu para lo que queramos hacer en departamento
+	 */
 	public static void menuDepartamento() {
 		IO.println("\n1. Crear departamento");
 		IO.println("2. Eliminar departamento");

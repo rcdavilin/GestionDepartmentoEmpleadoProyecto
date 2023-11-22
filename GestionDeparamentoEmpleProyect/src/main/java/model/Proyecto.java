@@ -18,6 +18,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+//Creamos los constructores y datos que necesitamos con el loombok
 
 @Data
 @Builder
@@ -25,9 +26,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
+//Creamos la tabla con nombre proyectos
+
 @Table(name = "proyectos")
+//Creamos una query para buscar todos los proyectos
+
 @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p")
 public class Proyecto {
+	//Creamos los atributos con sus getters y setters y una lista de empleados 
 
 	@Id
 	@GeneratedValue

@@ -5,13 +5,24 @@ import io.IO;
 import model.Empleado;
 import model.Proyecto;
 
+/**
+ * Clase para crear los metodos que necesitemos para manejar los proyectos
+ */
 public class ProyectoDao {
 
+	/**
+	 * Metodo para añadir proyectos
+	 * @param controller
+	 */
 	public static void addProyectos(GestionController controller) {
 		BD.getProyectosInit().forEach(controller::createProyecto);
 		IO.println("\n5 proyectos creados con éxito.");
 	}
 
+	/**
+	 * Metodo para eliminar proyectos
+	 * @param controller
+	 */
 	public static void deleteProyecto(GestionController controller) {
 		Proyecto p = null;
 		try {
@@ -37,6 +48,10 @@ public class ProyectoDao {
 		}
 	}
 
+	/**
+	 * Metodo para mostrar proyectos
+	 * @param controller
+	 */
 	public static void showProyecto(GestionController controller) {
 		if (existenProyectos(controller)) {
 			IO.println("\n");
@@ -47,6 +62,10 @@ public class ProyectoDao {
 
 	}
 
+	/**
+	 * Metodo para mostrar proyectos por ID
+	 * @param controller
+	 */
 	public static void showProyectoporID(GestionController controller) {
 		try {
 			if (existenProyectos(controller)) {
@@ -61,6 +80,10 @@ public class ProyectoDao {
 		}
 	}
 
+	/**
+	 * Metodo para añadir proyecto a empleado
+	 * @param controller
+	 */
 	public static void addProyectoToEmple(GestionController controller) {
 		Proyecto proy = null;
 		Empleado emp = null;
@@ -106,6 +129,10 @@ public class ProyectoDao {
 		}
 	}
 
+	/**
+	 * Metodo para eliminar proyecto de empleado
+	 * @param controller
+	 */
 	public static void deleteProyectoFromEmple(GestionController controller) {
 		Proyecto proy = null;
 		Empleado emp = null;
@@ -152,11 +179,17 @@ public class ProyectoDao {
 		}
 	}
 
+	/**
+	 * Metodo para comprobar que existe un proyecto
+	 * @param controller
+	 */
 	public static boolean existenProyectos(GestionController controller) {
 		return controller.getProyecto().size() != 0;
 	}
 
-	// Menu
+	/**
+	 * Menu para lo que queramos hacer en empleado
+	 */
 	public static void menuProyecto() {
 		IO.println("\n1. Crear proyectos");
 		IO.println("2. Eliminar proyecto");

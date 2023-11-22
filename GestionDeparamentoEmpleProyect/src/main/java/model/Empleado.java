@@ -22,6 +22,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+/**
+ * Creamos los constructores y datos que necesitamos con el loombok
+ */
 
 @Data
 @Builder
@@ -29,9 +32,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
+/**
+ * Creamos la tabla con nombre empleados
+ */
 @Table(name = "empleados")
+/**
+ * Creamos una query para buscar todos los empleados
+ */
 @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e")
 public class Empleado {
+	/**
+	 * Creamos los atributos con sus getters y setters y una lista de proyectos 
+	 */
 
 	@Id
 	@GeneratedValue
@@ -51,7 +63,9 @@ public class Empleado {
 	inverseJoinColumns = @JoinColumn(name = "proyecto_id"))
 	private List<Proyecto> misProyectos;
 
-	//Metodo toString para mostrar los atributos
+	/**
+	 * Metodo toString para mostrar los atributos
+	 */
 
 	public String toString() {
 
@@ -62,7 +76,11 @@ public class Empleado {
 
 	}
 
-	//Metodo para mostrar los proyectos de un empleado
+	/**
+	 * Metodo para mostrar los proyectos de un empleado
+	 * @param misProyectos
+	 * @return
+	 */
 	private List<String> mostrarProyectos(List<Proyecto> misProyectos) {
 		List<String> proyectos = new ArrayList<String>();
 		for (Proyecto proyecto : misProyectos) {

@@ -5,10 +5,16 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Clase para crear las propiedades de la aplicacion 
+ */
 public class ApplicationProperties {
 
 	private final Properties properties;
 
+	/**
+	 * Constructor para declarar una nueva propiedad para leer el fichero application.properties
+	 */
 	public ApplicationProperties() {
 		properties = new Properties();
 		try {
@@ -21,6 +27,11 @@ public class ApplicationProperties {
 		}
 	}
 
+	/**
+	 * Metodo para leer las propiedades del fichero
+	 * @param keyName
+	 * @return
+	 */
 	public String readProperty(String keyName) {
 		// Logger.getLogger(getClass().getName()).log(Level.INFO, "Leyendo propiedad " +
 		// keyName);

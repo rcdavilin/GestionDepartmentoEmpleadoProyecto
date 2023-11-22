@@ -8,9 +8,16 @@ import exceptions.DepartamentoExceptions;
 import jakarta.persistence.TypedQuery;
 import model.Departamento;
 
+/**
+ * Clase donde implementamos las interfaz departamentosRepositories y implementamos los metodos 
+ * de la interfaz CrudRepository y los creamos para la clase departamentos de la manera que queramos
+ */
 public class DepartamanetosRepositoriesImpl implements DepartamentosRepositories {
 	private final Logger logger = Logger.getLogger(DepartamanetosRepositoriesImpl.class.getName());
 
+	/**
+	 * Metodo para buscar todos los departamentos
+	 */
 	@Override
 	public List<Departamento> findAll() {
 		logger.info("findAll()");
@@ -22,6 +29,9 @@ public class DepartamanetosRepositoriesImpl implements DepartamentosRepositories
 		return list;
 	}
 
+	/**
+	 * Metodo para buscar un departamento por ID
+	 */
 	@Override
 	public Departamento findById(Integer id) {
 		logger.info("findById()");
@@ -40,6 +50,9 @@ public class DepartamanetosRepositoriesImpl implements DepartamentosRepositories
 		}
 	}
 
+	/**
+	 * Metodo para crear salvar los departamentos
+	 */
 	@Override
 	public Departamento save(Departamento entity) {
 		logger.info("save()");
@@ -63,6 +76,9 @@ public class DepartamanetosRepositoriesImpl implements DepartamentosRepositories
 		}
 	}
 
+	/**
+	 * Metodo para borrar los departamentos
+	 */
 	@Override
 	public Boolean delete(Departamento entity) {
 		logger.info("delete()");

@@ -10,8 +10,15 @@ import jakarta.persistence.TypedQuery;
 import model.Proyecto;
 import repositories.departamento.DepartamanetosRepositoriesImpl;
 
+/**
+ * Clase donde implementamos las interfaz eproyectosRepository y implementamos los metodos 
+ * de la interfaz CrudRepository y los creamos para la clase proyectos de la manera que queramos
+ */
 public class ProyectosRepositoriesImpl implements ProyectosRepositories{
 	 private final Logger logger = Logger.getLogger(DepartamanetosRepositoriesImpl.class.getName());
+	 /**
+		 * Metodo para buscar todos los proyectos
+		 */
 	 @Override
 	    public List<Proyecto> findAll() {
 	        logger.info("findAll()");
@@ -22,7 +29,9 @@ public class ProyectosRepositoriesImpl implements ProyectosRepositories{
 	        hb.close();
 	        return list;
 	    }
-
+	 /**
+		 * Metodo para buscar los proyectos por ID
+		 */
 	    @Override
 	    public Proyecto findById(Integer id) {
 	    	logger.info("findById()");
@@ -33,6 +42,9 @@ public class ProyectosRepositoriesImpl implements ProyectosRepositories{
 			return emp;
 	    }
 
+	    /**
+		 * Metodo para buscar salvar los proyectos
+		 */
 	    @Override
 	    public Proyecto save(Proyecto entity) {
 	        logger.info("save()");
@@ -55,6 +67,9 @@ public class ProyectosRepositoriesImpl implements ProyectosRepositories{
 	        }
 	    }
 
+	    /**
+		 * Metodo para buscar borrar los proyectos
+		 */
 	    @Override
 	    public Boolean delete(Proyecto entity) {
 	        logger.info("delete()");

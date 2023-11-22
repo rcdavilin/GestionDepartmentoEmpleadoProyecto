@@ -10,9 +10,16 @@ import jakarta.persistence.TypedQuery;
 import model.Empleado;
 import repositories.departamento.DepartamanetosRepositoriesImpl;
 
+/**
+ * Clase donde implementamos las interfaz empleadosRepository y implementamos los metodos 
+ * de la interfaz CrudRepository y los creamos para la clase empleados de la manera que queramos
+ */
 public class EmpleadosRepositoriesImpl implements EmpleadosRepository {
 	private final Logger logger = Logger.getLogger(DepartamanetosRepositoriesImpl.class.getName());
 
+	/**
+	 * Metodo para buscar todos los empleados
+	 */
 	@Override
 	public List<Empleado> findAll() {
 		logger.info("findAll()");
@@ -24,7 +31,9 @@ public class EmpleadosRepositoriesImpl implements EmpleadosRepository {
 		return list;
 	}
 
-
+	/**
+	 * Metodo para salvar los empleados
+	 */
 	@Override
 	public Empleado save(Empleado entity) {
 		logger.info("save()");
@@ -48,6 +57,9 @@ public class EmpleadosRepositoriesImpl implements EmpleadosRepository {
 		}
 	}
 
+	/**
+	 * Metodo para borrar los empleados
+	 */
 	@Override
 	public Boolean delete(Empleado entity) {
 		logger.info("delete()");
@@ -72,6 +84,9 @@ public class EmpleadosRepositoriesImpl implements EmpleadosRepository {
 		}
 	}
 
+	/**
+	 * Metodo para buscar los empleados por ID
+	 */
 	@Override
 	public Empleado findById(Integer id) {
 		logger.info("findById()");

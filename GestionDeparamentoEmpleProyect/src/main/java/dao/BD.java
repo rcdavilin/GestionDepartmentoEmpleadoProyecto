@@ -4,6 +4,9 @@ import java.util.List;
 
 import model.Proyecto;
 
+/**
+ * Metodo para crear unos proyectos predeterminados
+ */
 public final class BD {
 	public static List<Proyecto> getProyectosInit() {
 		return List.of(

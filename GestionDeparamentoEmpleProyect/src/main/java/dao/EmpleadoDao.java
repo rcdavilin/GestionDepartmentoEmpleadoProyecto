@@ -6,8 +6,15 @@ import model.Departamento;
 import model.Empleado;
 import model.Proyecto;
 
+/**
+ * Clase para crear los metodos que necesitemos para manejar los empleados
+ */
 public class EmpleadoDao {
 
+	/**
+	 * Metodo para añadir empleados
+	 * @param controller
+	 */
 	public static void addEmpleado(GestionController controller) {
 		IO.print("\nIntroduzca el nombre: ");
 		String nombre = IO.readString();
@@ -19,6 +26,10 @@ public class EmpleadoDao {
 						: "\nNo se ha podido añadir el departamento.");
 	}
 
+	/**
+	 * Metodo para eliminar empleados
+	 * @param controller
+	 */
 	public static void deleteEmpleado(GestionController controller) {
 		try {
 			if (existenEmpleados(controller)) {
@@ -53,6 +64,10 @@ public class EmpleadoDao {
 		}
 	}
 
+	/**
+	 * Metodo para mostrar los empleados
+	 * @param controller
+	 */
 	public static void showEmpleado(GestionController controller) {
 		if (existenEmpleados(controller)) {
 			IO.println("\n");
@@ -63,6 +78,10 @@ public class EmpleadoDao {
 
 	}
 
+	/**
+	 * Metodo para mostrar los empleados por ID
+	 * @param controller
+	 */
 	public static void showEmpleadoporID(GestionController controller) {
 		try {
 			if (existenEmpleados(controller)) {
@@ -77,7 +96,10 @@ public class EmpleadoDao {
 		}
 
 	}
-
+	/**
+	 * Metodo para añadir empleados a departamento
+	 * @param controller
+	 */
 	public static void addEmpleToDepartamento(GestionController controller) {
 		Empleado emp = null;
 		Departamento dep = null;
@@ -130,6 +152,10 @@ public class EmpleadoDao {
 
 	}
 
+	/**
+	 * Metodo para eliminar empleados de departamento
+	 *  * @param controller
+	 */
 	public static void deleteEmpleFromDepartamento(GestionController controller) {
 		Empleado emp = null;
 		Departamento dep = null;
@@ -161,7 +187,10 @@ public class EmpleadoDao {
 			}
 		}
 	}
-
+	/**
+	 * Metodo para añadir empleados a proyectos
+	 * @param controller
+	 */
 	public static void addEmpleToProyecto(GestionController controller) {
 		Empleado emp = null;
 		Proyecto p = null;
@@ -204,6 +233,10 @@ public class EmpleadoDao {
 		}
 	}
 
+	/**
+	 * Metodo para eliminar empleados de proyectos
+	 * @param controller
+	 */
 	public static void deleteEmpleFromProyecto(GestionController controller) {
 		Empleado emp = null;
 		Proyecto p = null;
@@ -247,11 +280,17 @@ public class EmpleadoDao {
 		}
 	}
 
+	/**
+	 * Metodo para comprobar que existe un empleado
+	 * @param controller
+	 */
 	public static boolean existenEmpleados(GestionController controller) {
 		return controller.getEmpleado().size() != 0;
 	}
 
-	// Empleado
+	/**
+	 * Menu para lo que queramos hacer en empleado
+	 */
 	public static void menuEmpleado() {
 		IO.println("\n1. Crear empleado");
 		IO.println("2. Eliminar empleado ");

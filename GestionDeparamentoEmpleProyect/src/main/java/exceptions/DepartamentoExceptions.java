@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * Clase para controlar las excepciones de la clase departamento
+ */
 public class DepartamentoExceptions extends RuntimeException {
 	/**
 	 * 
